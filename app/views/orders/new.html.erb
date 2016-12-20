@@ -1,0 +1,11 @@
+<%= form_for @order do |f| %>
+  <%= f.label :date %>
+  <%= f.text_field :date %>
+  <%= f.fields_for :order_items_attributes do |f| %>
+    <%#= f.hidden_field :order_id, :value => @order.id %>
+    <%= f.collection_select :item_id, Item.all, :id, :item_type %>
+    <%= f.label :quantity %>
+    <%= f.text_area :quantity %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
