@@ -1,0 +1,3 @@
+<h1> Account Details </h1>
+<%= render partial: 'accounts/orders_list', collection: @orders, as: :order %>
+<h2 style="color:red">GRAND TOTAL: <%= grand_total(@orders) %></h2>

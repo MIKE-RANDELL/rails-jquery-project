@@ -1,0 +1,9 @@
+<h4>Order placed: <%= order_date(order.date) %></h4>
+
+<% order.order_items.each do |order_item| %>
+  <li style="padding-left:19px">
+    <%= order_item.item.item_type %>, Quantity: <%= order_item.quantity %><br>
+  </li>
+<% end %>
+
+<p style="color:green">Total: <%= order_total(order) %></p><br>

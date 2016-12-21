@@ -1,13 +1,17 @@
 class OrdersController < ApplicationController
+
+
   def new
     @order = Order.new
+    @order.order_items.build
+    @order.order_items.build
   end
 
   def create
     @user = current_user
     @account = Account.find_or_create_by(user_id: @user.id)
-    @order = Order.create(params_check)
-    @account.orders << @order
+    @account.orders.create(params_check)
+    redirect_to user_account_path(@user.id)
   end
 
   private

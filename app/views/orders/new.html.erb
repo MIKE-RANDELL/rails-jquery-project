@@ -1,11 +1,9 @@
 <%= form_for @order do |f| %>
-  <%= f.label :date %>
-  <%= f.text_field :date %>
-  <%= f.fields_for :order_items_attributes do |f| %>
-    <%#= f.hidden_field :order_id, :value => @order.id %>
+  <%= f.hidden_field :date, :value => Time.now %>
+  <%= f.fields_for :order_items do |f| %>
     <%= f.collection_select :item_id, Item.all, :id, :item_type %>
-    <%= f.label :quantity %>
-    <%= f.text_area :quantity %>
+    <%= f.label "Quantity: "%>
+    <%= f.text_field :quantity %><br>
   <% end %>
   <%= f.submit %>
 <% end %>
