@@ -10,7 +10,8 @@ class OrdersController < ApplicationController
   def create
     @user = current_user
     @account = Account.find_or_create_by(user_id: @user.id)
-    @account.orders.create(params_check)
+    order = @account.orders.create(params_check)
+
     redirect_to user_account_path(@user.id)
   end
 

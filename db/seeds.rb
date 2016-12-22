@@ -6,12 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create(email: "michael@gmail.com" name: "Michael", password: "sherlock", password_confirmation: "sherlock")
+user = User.create(email: "michael@gmail.com", name: "Michael", password: "sherlock", password_confirmation: "sherlock")
 
 account = Account.create(user_id: user.id)
 
-order = Order.create(account_id: account.id)
+order = Order.create(account_id: account.id, date: Time.now)
 
-item = Item.create(item_type: "Floratam Pallet", with_pallet: true, price: 135)
+floratam_item = Item.create(item_type: "Floratam Pallet", with_pallet: true, price: 135)
 
-order_item = OrderItem.create(order_id: order.id, item_id: item.id, quantity: 1, pallet_count: 1) #pallet count manually for now
+topsoil_item = Item.create(item_type: "1 Yard Topsoil", with_pallet: false, price: 25)
+
+floratam_order_item = OrderItem.create(order_id: order.id, item_id: floratam_item.id, quantity: 1, pallet_count: 1) #pallet count manually for now
+
+topsoil_order_item = OrderItem.create(order_id: order.id, item_id: topsoil_item.id, quantity: 1, pallet_count: 0)

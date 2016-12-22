@@ -1,3 +1,9 @@
+<% if @user.errors.any? %>
+  <%= binding.pry %>
+<% end %>
+
 <h1> Account Details </h1>
 <%= render partial: 'accounts/orders_list', collection: @orders, as: :order %>
+<br>
 <h2 style="color:red">GRAND TOTAL: <%= grand_total(@orders) %></h2>
+<h3 style="color:brown">PALLET TOTAL: <%= grand_pallet_total(@orders) %></h3>

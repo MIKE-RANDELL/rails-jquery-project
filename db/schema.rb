@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220134458) do
+ActiveRecord::Schema.define(version: 20161222144126) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,18 +21,18 @@ ActiveRecord::Schema.define(version: 20161220134458) do
   create_table "items", force: :cascade do |t|
     t.string   "item_type"
     t.integer  "price"
-    t.boolean  "with_pallet"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "with_pallet", default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "item_id"
     t.integer  "quantity"
-    t.integer  "pallet_count"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "pallet_count", default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "orders", force: :cascade do |t|

@@ -1,9 +1,10 @@
 <%= form_for @order do |f| %>
   <%= f.hidden_field :date, :value => Time.now %>
   <%= f.fields_for :order_items do |f| %>
-    <%= f.collection_select :item_id, Item.all, :id, :item_type %>
+    <%= f.label "Item: " %>
+    <%= f.collection_select :item_id, Item.all, :id, :item_type, :include_blank => true %>
     <%= f.label "Quantity: "%>
-    <%= f.text_field :quantity %><br>
+    <%= f.select :quantity, (1..18), :include_blank => true %><br>
   <% end %>
   <%= f.submit %>
 <% end %>
