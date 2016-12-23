@@ -1,0 +1,9 @@
+<%= form_for item do |f| %>
+  <%= f.label "Item type: " %>
+  <%= f.text_field :item_type %><br>
+  <%= f.label "Price: " %>
+  <%= f.text_field :price %><br>
+  <%= f.label "Includes pallet?" %>
+  <%= f.check_box :with_pallet %><br>
+  <%= f.submit %>
+<% end %>

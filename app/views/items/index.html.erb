@@ -1,0 +1,9 @@
+<%= link_to "Create New Item", new_item_path %><br>
+<h2>Items: </h2>
+<% @items.each do |item| %>
+  <b>Item Type: </b><%= item.item_type %><br>
+  <b>Price: </b><%= item.price %><br>
+  <b>Includes Pallet: </b><%= includes_pallet(item) %><br>
+  <%= link_to "Edit Item", edit_item_path(item) %><br>
+  ------------------------------------<br>
+<% end %>

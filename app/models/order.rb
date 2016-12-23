@@ -3,8 +3,8 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
   belongs_to :account
 
-  scope :pallets_out, -> { joins(:order_items).where('order_items.pallet_count = ?', 1) }
-
+  scope :orders_with_pallets, -> { joins(:order_items).where('order_items.pallet_count = ?', 1) }
+  #this returns the orders that include items that have pallets, note: remember, an order has many items
 
   def order_items_attributes=(order_items_attributes)
     order_items_attributes.each do |i, order_item_attributes|
@@ -30,19 +30,13 @@ class Order < ApplicationRecord
     order.save
   end
 
-  def self.order_items_with_pallets
-    joins(:order_items).where("order_items.pallet_count > ?", 0)
-  end
-
   def self.total_pallets(orders)
     total = 0
-
     orders.each do |order|
       order.order_items.each do |order_item|
         total += order_item.pallet_count
       end
     end
-    
     total
   end
 end
