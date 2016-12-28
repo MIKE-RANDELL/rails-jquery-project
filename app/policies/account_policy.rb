@@ -6,4 +6,8 @@ class AccountPolicy < ApplicationPolicy
   def orders?
     user.try(:admin?) || record.try(:user) == user
   end
+
+  def payment?
+    user.try(:admin?)
+  end
 end

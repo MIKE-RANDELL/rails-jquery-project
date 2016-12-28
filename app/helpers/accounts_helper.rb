@@ -1,13 +1,17 @@
 module AccountsHelper
-  def grand_total(orders)
-    total = 0
-    tax = 1.06
-    orders.each do |order|
-      order.order_items.each do |order_item|
-        total += order_item.item.price * order_item.quantity
-      end
-    end
-    number_to_currency(total * tax)
+  #def grand_total(orders)
+  #  total = 0
+  #  tax = 1.06
+  #  orders.each do |order|
+  #    order.order_items.each do |order_item|
+  #      total += order_item.item.price * order_item.quantity
+  #    end
+  #  end
+  #  number_to_currency(total * tax)
+  #end
+
+  def current_balance(balance)
+    sprintf("%.2f", balance.truncate(2))
   end
 
   def order_total(order)
@@ -19,9 +23,14 @@ module AccountsHelper
     number_to_currency(total * tax)
   end
 
-  def order_date(date)
-    date_obj = Time.parse(date)
-    date_obj.strftime('%D, %l:%M %p')
+  def grand_pallet_total(orders)
+    total = 0
+    orders.each do |order|
+      order.order_items.each do |order_item|
+        total += order_item.pallet_count
+      end
+    end
+    total
   end
 
   def pallet_total(order)
@@ -32,13 +41,8 @@ module AccountsHelper
     total
   end
 
-  def grand_pallet_total(orders)
-    total = 0
-    orders.each do |order|
-      order.order_items.each do |order_item|
-        total += order_item.pallet_count
-      end
-    end
-    total
+  def order_date(date)
+    date_obj = Time.parse(date)
+    date_obj.strftime('%D, %l:%M %p')
   end
 end

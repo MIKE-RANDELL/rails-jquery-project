@@ -1,0 +1,6 @@
+Balance Due: $<%= sprintf("%.2f", @account.balance.truncate(2)) %>
+
+<%= form_tag user_create_payment_path do %>
+  <%= number_field_tag(:debit, nil, step: :any, :placeholder => "payment amount") %>
+  <%= submit_tag "Submit payment" %>
+<% end %>

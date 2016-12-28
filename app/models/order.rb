@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
   belongs_to :account
 
+  scope :orders_by_account, ->(account) { where('account_id = ?', account)}
   scope :orders_by_customer, ->(customer) { where('account_id = ?', customer.account)}
   scope :orders_with_pallets, -> { joins(:order_items).where('order_items.pallet_count = ?', 1) }
   #this returns the orders that include items that have pallets, note: remember, an order has many items
