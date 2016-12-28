@@ -1,0 +1,4 @@
+<% @accounts.each do |account| %>
+  <%= account.user.email %>
+  <%= link_to "Account Orders", user_account_path(account.user) %><br><br>
+<% end %>

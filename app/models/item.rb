@@ -1,6 +1,5 @@
 class Item < ApplicationRecord
-  #belongs_to :order
   has_many :order_items
 
-  #scope :has_pallet, -> { where(with_pallet: true) }
+  validates_format_of :item_type, :with => /\A[A-Za-z\s]*\z/, :message => "input is invalid. No numbers or special characters.."
 end

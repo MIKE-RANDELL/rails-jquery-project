@@ -2,12 +2,15 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     authorize @item
-    render :partial => 'items/item_form', locals: {item: @item}
   end
 
   def create
-    @item = Item.create(params_check)
-    redirect_to items_path
+    @item = Item.new(params_check)
+    if @item.save
+      redirect_to items_path
+    else
+      render :partial => 'items/item_form', locals: {item: @item}
+    end
   end
 
   def index
@@ -17,16 +20,14 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    render :partial => 'items/item_form', locals: {item: @item}
   end
 
   def update
     @item = Item.find(params[:id])
     if @item.update_attributes(params_check)
       redirect_to items_path
-    else #this is where I can use ActiveRecord errors object?
-      redirect_to edit_item_path(@item)
-      flash[:error] = "You must enter valid details"
+    else
+      render :partial => 'items/item_form', locals: {item: @item}
     end
   end
 

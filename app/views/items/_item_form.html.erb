@@ -1,9 +1,21 @@
+<style>
+.field_with_errors {
+  border: 3px solid red;
+  display: inline;
+}
+</style>
+
+<% item.errors.full_messages.each do |msg| %>
+  <%= msg %>
+<% end %>
+<br><br>
+
 <%= form_for item do |f| %>
   <%= f.label "Item type: " %>
-  <%= f.text_field :item_type %><br>
-  <%= f.label "Price: " %>
-  <%= f.text_field :price %><br>
+  <%= f.text_field :item_type %><br><br>
+  <%= f.label "Price: $" %>
+  <%= f.text_field :price %><br><br>
   <%= f.label "Includes pallet?" %>
-  <%= f.check_box :with_pallet %><br>
+  <%= f.check_box :with_pallet %><br><br>
   <%= f.submit %>
 <% end %>
