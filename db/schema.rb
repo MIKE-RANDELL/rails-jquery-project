@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228155704) do
+ActiveRecord::Schema.define(version: 20161228214156) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.decimal  "balance",    default: "0.0"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.decimal  "balance",      default: "0.0"
+    t.integer  "pallet_count", default: 0
   end
 
   create_table "items", force: :cascade do |t|
@@ -58,6 +59,8 @@ ActiveRecord::Schema.define(version: 20161228155704) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "role"
+    t.string   "provider"
+    t.string   "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

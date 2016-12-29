@@ -1,5 +1,7 @@
 <h1> Account Details </h1>
+
 <%= render partial: 'accounts/orders_list', collection: @orders, as: :order %>
 <br>
 <h2 style="color:red">CURRENT BALANCE: $<%= current_balance(@account.balance) %></h2>
-<h3 style="color:brown">PALLET TOTAL: <%= grand_pallet_total(@orders) %></h3>
+<h3 style="color:brown">PALLETS OUT: <%= @account.pallet_count %></h3>
+<%= account_details(@account) %>

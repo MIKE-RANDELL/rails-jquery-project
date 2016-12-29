@@ -1,5 +1,6 @@
 <% @accounts.each do |account| %>
-  <b><%= account.user.email %> | CURRENT BALANCE: $<%= current_balance(account.balance) %></b><br>
-  <%= link_to "Account Orders", user_account_path(account.user) %> |
-  <%= link_to "Make Payment", user_payment_path(account.user) %><br><br>
+  <b><%= account.user.name %> | CURRENT BALANCE: $<%= current_balance(account.balance) %></b><br>
+  <%= link_to "Account Details", user_account_path(account.user) %> |
+  <%= link_to "Make Payment", user_payment_path(account.user) %> |
+  <%= link_to "Return Pallets", user_pallets_path(account.user) %><br><br>
 <% end %>

@@ -1,0 +1,5 @@
+Pallets Out: <%= @account.pallet_count %>
+<%= form_tag user_return_pallets_path do %>
+  <%= number_field_tag :return_amt %>
+  <%= submit_tag "Return pallets"%>
+<% end %>

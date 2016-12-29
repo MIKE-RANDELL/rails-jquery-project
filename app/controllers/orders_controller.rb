@@ -12,7 +12,8 @@ class OrdersController < ApplicationController
     @account = Account.find_or_create_by(user_id: @user.id)
     order = @account.orders.create(params_check)
     update_account_balance(@account, order)
-    
+    update_account_pallet_count(@account, order)
+
     redirect_to user_account_path(@user.id)
   end
 
@@ -32,8 +33,22 @@ class OrdersController < ApplicationController
 
   def update_account_balance(account, order)
     tax = 1.06
+    pallet_price = 6.00
     order.order_items.each do |order_item|
-      account.balance += order_item.quantity * order_item.item.price.to_f * tax
+      if order_item.pallet_count > 0
+        account.balance += (order_item.quantity * order_item.item.price.to_f * tax) + (order_item.pallet_count * pallet_price)
+      else
+        account.balance += order_item.quantity * order_item.item.price.to_f * tax
+      end
+    end
+    account.save
+  end
+
+  def update_account_pallet_count(account, order)
+    order.order_items.each do |order_item|
+      if order_item.pallet_count > 0
+        account.pallet_count += order_item.pallet_count
+      end
     end
     account.save
   end
