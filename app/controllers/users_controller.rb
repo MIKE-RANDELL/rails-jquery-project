@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
-  def home  
+  def home
+    @item = Item.new
+    @account = Account.new
   end
 end

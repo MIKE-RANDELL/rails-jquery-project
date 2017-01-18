@@ -10,4 +10,12 @@ class AccountPolicy < ApplicationPolicy
   def payment?
     user.try(:admin?)
   end
+
+  def pallets?
+    user.try(:admin?)
+  end
+
+  def books?
+    user.try(:admin?) #to be implemented
+  end
 end

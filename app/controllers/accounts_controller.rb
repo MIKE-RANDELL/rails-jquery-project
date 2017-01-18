@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_action :find_account
+  include AccountsHelper
 
   def index
     @accounts = Account.all
@@ -17,8 +18,7 @@ class AccountsController < ApplicationController
 
   def create_payment
     payment = BigDecimal.new(params[:debit])
-    @account.balance -= payment
-    @account.save
+    make_payment(@account, payment)
 
     redirect_to user_account_path(@account.user_id)
   end
@@ -29,12 +29,13 @@ class AccountsController < ApplicationController
 
   def return_pallets
     amount = params[:return_amt].to_i
-    @account.pallet_count -= amount
-    @account.balance -= amount * 6
-    @account.save
+    pallet_return(@account, amount)
 
     redirect_to user_account_path(@account.user_id)
   end
+
+  #def books
+  #end
 
   private
 

@@ -6,15 +6,20 @@
 <%= link_to "Sign In", new_user_session_path unless current_user %><br>
 <%= link_to "Sign Up", new_user_registration_path unless current_user %><br><br>
 
-<%= link_to "Create Order", new_order_path unless !current_user%><br><br>
+<%= link_to "Create Order", new_order_path unless !current_user%><br>
+<%= link_to "View Account", user_account_path(current_user) unless !current_user || current_user.admin? %><br>
 
-<% if policy(Item.new).index? %>
+<% if policy(@item).index? %>
   <%= link_to "View/Edit/Create Items", items_path %>
 <% end %><br><br>
 
-<% if policy(Account.new).index? %>
+<% if policy(@account).index? %>
   <%= link_to "View Accounts", accounts_path %>
 <% end %><br><br><br>
+
+<%# if policy(@account).books? %>
+  <%#= link_to "View Books", books_path %>
+<%# end %>
 
 <% if current_user %>
   <b><%= "Signed in as " + current_user.name %><br></b>
