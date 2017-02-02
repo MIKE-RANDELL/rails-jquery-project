@@ -6,17 +6,23 @@ $(function() {
 var getAllOrders = function () {
   $(".js-orders").on('click', function() {
     $.getJSON("/books/orders", function(data) {
-      //createOrderObjects(data);
-      showOrders(data);
+      var orderObjects = createOrderObjects(data);
+      debugger;
     });
   });
 };
 
 var createOrderObjects = function(orders) {
+  var jsOrderObjs = [];
   orders.forEach(function(order) {
-    debugger;
-    var jsOrderObj = new Order(order.date, order.account_id, order.items, order.order_items)
+    var jsOrderObj = new Order(order.date, order.account_id, order.items, order.order_items);
+    jsOrderObjs.push(jsOrderObj);
   });
+  return jsOrderObjs;
+};
+
+var appendOrderObjects = function(orders) {
+
 };
 
 function Order(date, account_id, items, order_items) {
