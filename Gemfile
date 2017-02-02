@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
-gem 'kaminari'
+
 gem 'active_model_serializers'
 
 gem 'pundit'

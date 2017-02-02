@@ -9,8 +9,6 @@ class AccountsController < ApplicationController
 
   def orders
     @note = Note.new
-    @notes = Note.order(created_at: :desc).page(params[:page])
-    #binding.pry
     @orders = @account.orders
     authorize @account
     #respond_to do |format|
