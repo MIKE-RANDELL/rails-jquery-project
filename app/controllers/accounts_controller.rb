@@ -8,9 +8,27 @@ class AccountsController < ApplicationController
   end
 
   def orders
-    @orders = @account.orders #@orders = Order.orders_by_account(@account) #use of AR scope method = SLOW
+    @note = Note.new
+    @notes = Note.order(created_at: :desc).page(params[:page])
+    #binding.pry
+    @orders = @account.orders
     authorize @account
+    #respond_to do |format|
+    #  format.html { render :orders }
+    #  format.json { render json: @orders}
+    #end
+    #@orders = @account.orders #@orders = Order.orders_by_account(@account) #use of AR scope method = SLOW
+
   end
+
+  #def ajax_orders
+  #  @orders = @account.orders
+  #  respond_to do |format|
+  #    format.html { render :orders }
+  #    format.json { render json: @orders}
+  #  end
+    #render plain: @orders
+  #end
 
   def payment
     authorize @account
@@ -39,6 +57,12 @@ class AccountsController < ApplicationController
     @book_printout_array = item_setter(@items)
   end
 
+  def books_orders
+    @accounts = Account.all
+    @orders = Order.all
+    render json: @orders
+  end
+
   private
 
   def item_setter(items)
@@ -50,6 +74,7 @@ class AccountsController < ApplicationController
   end
 
   def find_account
+    #@account = Account.find_by(params[:id])
     @account = Account.find_by(:user_id => params[:id])
   end
 end

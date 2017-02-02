@@ -1,4 +1,11 @@
-<h3>Company Books:</h3>
+<h3>Company Books</h3>
+<h4 style='color: red; text-decoration: underline'>Mechandise sold count:</h4>
 <% @book_printout_array.each do |item| %>
   <b><%= item %></b><br>
 <% end %>
+<br><br><br>
+
+<div id="orders"></div>
+
+
+<button class="js-orders">VIEW ALL ORDERS</button>

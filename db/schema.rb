@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228214156) do
+ActiveRecord::Schema.define(version: 20170201202918) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20161228214156) do
     t.boolean  "with_pallet", default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|

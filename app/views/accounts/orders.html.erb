@@ -5,3 +5,16 @@
 <h2 style="color:red">CURRENT BALANCE: $<%= current_balance(@account.balance) %></h2>
 <h3 style="color:brown">PALLETS OUT: <%= @account.pallet_count %></h3>
 <%= account_details(@account) %>
+<br>
+<%= form_for @note, :html=> {:class => 'js-new-note'} do |f| %>
+  <%= f.hidden_field :account_id, :value => @account.id %>
+  <%= f.text_field :content %>
+  <%= f.submit 'create new note' %>
+<% end %>
+<br>
+<div id="paginator">
+  <%= paginate @notes, :remote => true %>
+</div>
+<div id="notes">
+  <%= render @notes %>
+</div>
