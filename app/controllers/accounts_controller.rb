@@ -61,6 +61,10 @@ class AccountsController < ApplicationController
     render json: @orders
   end
 
+  def api_account
+    binding.pry
+  end
+
   private
 
   def item_setter(items)

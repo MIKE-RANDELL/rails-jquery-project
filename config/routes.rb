@@ -16,8 +16,9 @@ Rails.application.routes.draw do
   get "/books", to: "accounts#books", as: "books"
 
   get "/account/:id/orders", to: "accounts#orders", as: "user_account"     #regular action
-  #get "/account/:id/orders", to: "accounts#ajax_orders", as: "user_account" #ajax action
 
-  get "/books/orders", to: "accounts#books_orders", as: "books_orders"
-  post "/notes", to: "notes#create", as: "notes"
+
+  get "/books/orders", to: "accounts#books_orders", as: "books_orders" #ajax route
+  post "/notes", to: "notes#create", as: "notes" #ajax route
+  get "/api/account/:id", to: "accounts#api_account" #ajax route
 end

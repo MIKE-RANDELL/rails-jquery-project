@@ -7,7 +7,7 @@ var getAllOrders = function () {
   $(".js-orders").on('click', function() {
     $.getJSON("/books/orders", function(data) {
       var orderObjects = createOrderObjects(data);
-      debugger;
+      appendOrderObjects(orderObjects);
     });
   });
 };
@@ -22,23 +22,35 @@ var createOrderObjects = function(orders) {
 };
 
 var appendOrderObjects = function(orders) {
-
+  orders.forEach(function(order) {
+    $('#orders').append(order.formatOrder())
+  });
 };
 
-function Order(date, account_id, items, order_items) {
-  this.date = date
-  this.account_id = account_id
-  this.items = items
-  this.order_items = order_items
-};
+var formatDate = function(date) {
+  var date = new Date(date);
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var year = date.getFullYear();
+  return `${month}/` + `${day}/` + `${year}`
+}
 
-Order.prototype.formatOrder = function() {
-  var itemHTML = `<b>${this.date}</b> --- ` + `<b>Account ID: ${this.account_id}</b><br>`
-  for (i = 0; i < this.order_items.length; i++) {
-    itemHTML += '<li>' + `${this.items[i].item_type}: ` + `${this.order_items[i].quantity}` + '</li>'
+class Order {
+  constructor(date, account_id, items, order_items){
+    this.date = formatDate(date)
+    this.account_id = account_id
+    this.items = items
+    this.order_items = order_items
   }
-  return itemHTML
-};
+
+  formatOrder() {
+    var itemHTML = `<b>${this.date}</b> --- ` + `<a href='/api/account/${this.account_id}'>ACCOUNT</a><br>`//`<b>Account ID: ${this.account_id}</b><br>`
+    for (var i = 0; i < this.order_items.length; i++) {
+      itemHTML += '<li>' + `${this.items[i].item_type}: ` + `${this.order_items[i].quantity}` + '</li>'
+    }
+    return itemHTML
+  }
+}
 
 var showOrders = function(data) {
   var dom = ""
@@ -49,7 +61,7 @@ var showOrders = function(data) {
 };
 
 var showOrdersHtml = function(order) {
-  var itemHTML = `<b>${order.date}</b> --- ` + `<b>Account ID: ${order.account_id}</b><br>`
+  var itemHTML = `<b>${order.date}</b> --- ` + `<a href='/api/account/${order.account_id}'>ACCOUNT</a><br>`
   for (i = 0; i < order.order_items.length; i++) {
     itemHTML += '<li>' + `${order.items[i].item_type}: ` + `${order.order_items[i].quantity}` + '</li>'
   }
@@ -65,7 +77,6 @@ var newNoteForm = function() {
     var noting = $.post('/notes', values);
 
     noting.done(function(data) {
-      debugger;
       $('#show_note').html(`${data.content}`)
     });
   });
