@@ -7,6 +7,6 @@ class NotesController < ApplicationController
   private
 
   def params_check
-    params.require(:note).permit(:account_id, :content)
+    params.require(:note).permit(:id, :account_id, :content)
   end
 end

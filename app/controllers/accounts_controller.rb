@@ -62,7 +62,8 @@ class AccountsController < ApplicationController
   end
 
   def api_account
-    binding.pry
+    @account = Account.find(params[:id])
+    render json: @account
   end
 
   private
