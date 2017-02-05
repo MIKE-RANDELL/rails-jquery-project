@@ -5,10 +5,11 @@ class NotesController < ApplicationController
   end
 
   def api_show
-    binding.pry
-    @account = Account.find(params[:accid])
     @account_notes = Note.notes_by_account(params[:accid])
-
+    index = params[:noteid].to_i
+    @note_index = @account_notes.find_index {|e| e.id == index}
+    @previous_note = @account_notes[@note_index - 1]
+    render json: @previous_note, status: 201
   end
 
   private

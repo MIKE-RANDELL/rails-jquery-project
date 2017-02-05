@@ -67,6 +67,12 @@ class Note {
     //noteHTML += `<input type="hidden" name="note-id" value="${this.id}">`
     return noteHTML;
   }
+
+  formatNextNote() {
+    var noteHTML = `<div class='js-current-note' data-note-id='${this.id}' data-account-id='${this.account_id}'>${this.content} date: ${this.date}</div>`;
+    //noteHTML += `<input type="hidden" name="note-id" value="${this.id}">`
+    return noteHTML;
+  }
 }
 
 var newNoteForm = function() {
@@ -102,7 +108,9 @@ var nextNoteClickHandler = function() {
 
 var getNextNote = function(accountId, noteId) {
   $.get(`/api/note/${accountId}/${noteId}`, function(data) {
-    debugger;
+    var noteObject = createNoteObject(data)
+    //debugger;
+    $('.js-current-note').replaceWith(noteObject.formatNote())
   });
 };
 //class Account {
