@@ -94,8 +94,15 @@ var createNoteObject = function(data) {
 var nextNoteClickHandler = function() {
   $('.js-next-note-button').on('click', function(e) {
     e.preventDefault()
+    var noteId = $('.js-current-note').data('note-id')
+    var accountId = $('.js-current-note').data('account-id')
+    getNextNote(accountId, noteId);
+  });
+};
+
+var getNextNote = function(accountId, noteId) {
+  $.get(`/api/note/${accountId}/${noteId}`, function(data) {
     debugger;
-    $('#show-note').text();
   });
 };
 //class Account {
