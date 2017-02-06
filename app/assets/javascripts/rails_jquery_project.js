@@ -46,10 +46,11 @@ class Order {
   }
 
   formatOrder() {
-    var itemHTML = `<b>${this.date}</b> <br> <a href='#' class='js-account' data-id='${this.account_id}'>ACCOUNT</a><br>`//`<b>Account ID: ${this.account_id}</b><br>`
+    var itemHTML = `<span><b>${this.date}</b> # <b>ACCOUNT ${this.account_id}</b></span><br>`
     for (var i = 0; i < this.order_items.length; i++) {
       itemHTML += '<li>' + `${this.items[i].item_type}: ` + `${this.order_items[i].quantity}` + '</li>'
     }
+    itemHTML += '<br>'
     return itemHTML
   }
 }

@@ -48,10 +48,10 @@ class AccountsController < ApplicationController
     render json: @orders
   end
 
-  def api_account
-    @account = Account.find(params[:id])
-    render json: @account
-  end
+  #def api_account
+  #  @account = Account.find(params[:id])
+  #  render json: @account
+  #end
 
   private
 
