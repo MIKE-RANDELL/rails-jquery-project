@@ -1,6 +1,6 @@
 $(function() {
   getAllOrders();
-  //setAccountClickHandler();
+  previousNoteClickHandler();
   nextNoteClickHandler();
   newNoteForm();
 });
@@ -32,8 +32,8 @@ var appendOrderObjects = function(orders) {
 var formatDate = function(date) {
   var date = new Date(date);
   var month = date.getMonth() + 1;
-  var day = date.getDate();
-  var year = date.getFullYear();
+  var day = date.getDate()
+  var year = date.getFullYear()
   return `${month}/` + `${day}/` + `${year}`
 }
 
@@ -63,14 +63,7 @@ class Note {
   }
 
   formatNote() {
-    var noteHTML = `<div class='js-current-note' data-note-id='${this.id}' data-account-id='${this.account_id}'>${this.content} date: ${this.date}</div>`;
-    //noteHTML += `<input type="hidden" name="note-id" value="${this.id}">`
-    return noteHTML;
-  }
-
-  formatNextNote() {
-    var noteHTML = `<div class='js-current-note' data-note-id='${this.id}' data-account-id='${this.account_id}'>${this.content} date: ${this.date}</div>`;
-    //noteHTML += `<input type="hidden" name="note-id" value="${this.id}">`
+    var noteHTML = `<span class='js-current-note' data-note-id='${this.id}' data-account-id='${this.account_id}'>${this.content} @ date: ${this.date}</span>`;
     return noteHTML;
   }
 }
@@ -84,17 +77,10 @@ var newNoteForm = function() {
     var noting = $.post('/notes', values);
 
     noting.done(function(data) {
-      //debugger;
       var noteObject = createNoteObject(data)
-      //debugger;
-      $('#show-note').append(noteObject.formatNote())
+      $('#show-note').html(noteObject.formatNote())
     });
   });
-};
-
-var createNoteObject = function(data) {
-  var noteObj = new Note(data.id, data.account_id, data.content, data.created_at);
-  return noteObj;
 };
 
 var nextNoteClickHandler = function() {
@@ -106,10 +92,30 @@ var nextNoteClickHandler = function() {
   });
 };
 
+var previousNoteClickHandler = function() {
+  $('.js-previous-note-button').on('click', function(e) { //HERE
+    e.preventDefault()
+    var noteId = $('.js-current-note').data('note-id')
+    var accountId = $('.js-current-note').data('account-id')
+    getPreviousNote(accountId, noteId);
+  });
+};
+
+var createNoteObject = function(data) {
+  var noteObj = new Note(data.id, data.account_id, data.content, data.created_at);
+  return noteObj;
+};
+
 var getNextNote = function(accountId, noteId) {
-  $.get(`/api/note/${accountId}/${noteId}`, function(data) {
+  $.get(`/api/next_note/${accountId}/${noteId}`, function(data) {
     var noteObject = createNoteObject(data)
-    //debugger;
+    $('.js-current-note').replaceWith(noteObject.formatNote())
+  });
+};
+
+var getPreviousNote = function(accountId, noteId) {
+  $.get(`/api/previous_note/${accountId}/${noteId}`, function(data) {
+    var noteObject = createNoteObject(data)
     $('.js-current-note').replaceWith(noteObject.formatNote())
   });
 };

@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   get "/books/orders", to: "accounts#books_orders", as: "books_orders"
   post "/notes", to: "notes#api_create"#, as: "notes"
-  get "/api/note/:accid/:noteid", to: "notes#api_show"
+  get "/api/next_note/:accid/:noteid", to: "notes#api_show_next"
+  get "/api/previous_note/:accid/:noteid", to: "notes#api_show_previous"
 
   #get "/api/account/:id", to: "accounts#api_account"
 end

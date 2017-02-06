@@ -41,6 +41,15 @@ module AccountsHelper
     date_obj.strftime('%D, %l:%M %p')
   end
 
+  def note_date(date)
+    date_obj = Time.parse(date.to_s)
+    date_obj.strftime("%m/%d/%Y").gsub(/\b0(?=\d)/, '')
+  end
+
+  def init_current_note_builder(current_note)
+    current_note.content + ' @ date: ' +  note_date(current_note.created_at)
+  end
+
   def account_details(account)
     content_tag(:h4, "Name: " + account.user.name + " | " + "Email: " + account.user.email) unless !account.user.email
   end

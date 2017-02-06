@@ -5,14 +5,19 @@
 <h2 style="color:red">CURRENT BALANCE: $<%= current_balance(@account.balance) %></h2>
 <h3 style="color:brown">PALLETS OUT: <%= @account.pallet_count %></h3>
 <%= account_details(@account) %>
+
 <br>
+<h1> NOTES: </h1>
+<span class='js-previous-note-div'><button class='js-previous-note-button'><</button></span>
+<span id="show-note">
+  <%= content_tag(:span, init_current_note_builder(@current_note) , :class => 'js-current-note', :'data-note-id' => @current_note.id, :'data-account-id' => @current_note.account_id) %>
+</span>
+<span class='js-next-note-div'><button class='js-next-note-button'>></button></span>
+
+<br>
+
 <%= form_for @note, :html=> {:class => 'js-new-note'} do |f| %>
   <%= f.hidden_field :account_id, :value => @account.id %>
   <%= f.text_field :content %>
   <%= f.button 'create new note' %>
 <% end %>
-<br>
-<div id="show-note">
-
-</div>
-<div class='js-next-note-div'><button class='js-next-note-button'>NEXT</button></div>

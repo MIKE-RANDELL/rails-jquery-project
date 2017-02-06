@@ -9,24 +9,11 @@ class AccountsController < ApplicationController
 
   def orders
     @note = Note.new
+    @current_note = @account.notes.last
+    #@current_note_date = note_date(@current_note.created_at)
     @orders = @account.orders
     authorize @account
-    #respond_to do |format|
-    #  format.html { render :orders }
-    #  format.json { render json: @orders}
-    #end
-    #@orders = @account.orders #@orders = Order.orders_by_account(@account) #use of AR scope method = SLOW
-
   end
-
-  #def ajax_orders
-  #  @orders = @account.orders
-  #  respond_to do |format|
-  #    format.html { render :orders }
-  #    format.json { render json: @orders}
-  #  end
-    #render plain: @orders
-  #end
 
   def payment
     authorize @account
