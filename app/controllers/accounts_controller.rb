@@ -10,7 +10,6 @@ class AccountsController < ApplicationController
   def orders
     @note = Note.new
     @current_note = @account.notes.last
-    #@current_note_date = note_date(@current_note.created_at)
     @orders = @account.orders
     authorize @account
   end
@@ -27,7 +26,6 @@ class AccountsController < ApplicationController
   end
 
   def pallets
-
   end
 
   def return_pallets
@@ -48,11 +46,6 @@ class AccountsController < ApplicationController
     render json: @orders
   end
 
-  #def api_account
-  #  @account = Account.find(params[:id])
-  #  render json: @account
-  #end
-
   private
 
   def item_setter(items)
@@ -64,7 +57,6 @@ class AccountsController < ApplicationController
   end
 
   def find_account
-    #@account = Account.find_by(params[:id])
     @account = Account.find_by(:user_id => params[:id])
   end
 end

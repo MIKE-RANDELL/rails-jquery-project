@@ -8,9 +8,9 @@ class NotesController < ApplicationController
     @account_notes = Note.notes_by_account(params[:accid])
     index = params[:noteid].to_i
     @note_index = @account_notes.find_index {|e| e.id == index}
-    @previous_note = @account_notes[@note_index + 1]
-    if @previous_note
-      render json: @previous_note, status: 201
+    @next_note = @account_notes[@note_index + 1]
+    if @next_note
+      render json: @next_note, status: 201
     else
       render json: @account_notes[@note_index], status: 201
     end

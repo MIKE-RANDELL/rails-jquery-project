@@ -72,9 +72,7 @@ class Note {
 var newNoteForm = function() {
   $('.js-new-note').on('submit', function(event) {
     event.preventDefault();
-
     var values = $(this).serialize();
-
     var noting = $.post('/notes', values);
 
     noting.done(function(data) {
@@ -120,6 +118,10 @@ var getPreviousNote = function(accountId, noteId) {
     $('.js-current-note').replaceWith(noteObject.formatNote())
   });
 };
+
+//WAS MESSING WITH LINKING TO AN ACCOUNT
+//ORIGINAL DOMAIN SETUP IS NOT IDEAL, SCRAPPED THIS FUNCTIONALITY
+
 //class Account {
 //  constructor(accId, userName, userEmail){
 //    this.accId = accId
@@ -156,18 +158,18 @@ var getPreviousNote = function(accountId, noteId) {
 
 //OLD FUNCTIONALITY without use of JS OBJECTS
 
-var showOrders = function(data) {
-  var dom = ""
-  $.each(data, function(index, order) {
-    dom += showOrdersHtml(order) + '<br><br>'
-  });
-  $("#orders").html(dom);
-};
+//var showOrders = function(data) {
+//  var dom = ""
+//  $.each(data, function(index, order) {
+//    dom += showOrdersHtml(order) + '<br><br>'
+//  });
+//  $("#orders").html(dom);
+//};
 
-var showOrdersHtml = function(order) {
-  var itemHTML = `<b>${order.date}</b> --- ` + `<a href='/api/account/${order.account_id}'>ACCOUNT</a><br>`
-  for (i = 0; i < order.order_items.length; i++) {
-    itemHTML += '<li>' + `${order.items[i].item_type}: ` + `${order.order_items[i].quantity}` + '</li>'
-  }
-  return itemHTML
-};
+//var showOrdersHtml = function(order) {
+//  var itemHTML = `<b>${order.date}</b> --- ` + `<a href='/api/account/${order.account_id}'>ACCOUNT</a><br>`
+//  for (i = 0; i < order.order_items.length; i++) {
+//    itemHTML += '<li>' + `${order.items[i].item_type}: ` + `${order.order_items[i].quantity}` + '</li>'
+//  }
+//  return itemHTML
+//};
