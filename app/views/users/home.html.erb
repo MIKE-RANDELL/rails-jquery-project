@@ -15,6 +15,10 @@
 
 <% if policy(@account).index? %>
   <%= link_to "View Accounts", accounts_path %>
+<% end %><br><br>
+
+<% if policy(@account).books? %>
+  <%= link_to "View Books", books_path %>
 <% end %><br><br><br>
 
 <%# if policy(@account).books? %>
