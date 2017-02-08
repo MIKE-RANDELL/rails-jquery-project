@@ -10,11 +10,17 @@
 <h1> NOTES: </h1>
 <span class='js-previous-note-div'><button class='js-previous-note-button'><</button></span>
 <span id="show-note">
-  <%= content_tag(:span, init_current_note_builder(@current_note) , :class => 'js-current-note', :'data-note-id' => @current_note.id, :'data-account-id' => @current_note.account_id) %>
+  <% if @current_note %>
+    <%= content_tag(:span, init_current_note_builder(@current_note) , :class => 'js-current-note', :'data-note-id' => @current_note.id, :'data-account-id' => @current_note.account_id) %>
+  <% end %>
 </span>
 <span class='js-next-note-div'><button class='js-next-note-button'>></button></span>
 
 <br>
+
+<div class='show-error'>
+
+</div>
 
 <% if policy(@note).api_create? %>
   <%= form_for @note, :html=> {:class => 'js-new-note'} do |f| %>

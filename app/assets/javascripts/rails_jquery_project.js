@@ -1,18 +1,54 @@
 $(function() {
-  getAllOrders();
-  previousNoteClickHandler();
-  nextNoteClickHandler();
   newNoteForm();
+  setEventListeners();
 });
 
-var getAllOrders = function () {
+var setEventListeners = function () {
   $(".js-orders").on('click', function() {
-    $.getJSON("/books/orders", function(data) {
-      var orderObjects = createOrderObjects(data);
-      appendOrderObjects(orderObjects);
-    });
+    getOrdersApi();
+  });
+
+  $('.js-next-note-button').on('click', function(e) {
+    e.preventDefault();
+    nextNoteApi();
+  });
+
+  $('.js-previous-note-button').on('click', function(e) { //HERE
+    e.preventDefault()
+    previousNoteApi();
   });
 };
+
+var previousNoteApi = function() {
+  var noteId = $('.js-current-note').data('note-id')
+  var accountId = $('.js-current-note').data('account-id')
+  getPreviousNote(accountId, noteId);
+}
+
+var nextNoteApi = function() {
+  var noteId = $('.js-current-note').data('note-id')
+  var accountId = $('.js-current-note').data('account-id')
+  getNextNote(accountId, noteId);
+}
+
+
+var getOrdersApi = function() {
+  $.getJSON("/books/orders", function(data) {
+   var orderObjects = createOrderObjects(data);
+   appendOrderObjects(orderObjects);
+  });
+}
+
+//
+// function handleResponse(response) {
+//   if (response.data) {
+//     var orderObjects = createOrderObjects(data);
+//     appendOrderObjects(orderObjects);
+//   }
+//   if (response.err) {
+//     // do something here
+//   }
+// }
 
 var createOrderObjects = function(orders) {
   var jsOrderObjs = [];
@@ -72,33 +108,23 @@ class Note {
 var newNoteForm = function() {
   $('.js-new-note').on('submit', function(event) {
     event.preventDefault();
+
     var values = $(this).serialize();
-    var noting = $.post('/notes', values);
+    if (!values.split("=")[4].trim()) {
+      $('.show-error').html('You must enter some text..')
+    } else {
+      var noting = $.post('/notes', values);
+      noting.done(function(data) {
+        var noteObject = createNoteObject(data)
+        $('#show-note').html(noteObject.formatNote())
+        $('.show-error').html('')
+      });
+    }
 
-    noting.done(function(data) {
-      var noteObject = createNoteObject(data)
-      $('#show-note').html(noteObject.formatNote())
-    });
   });
 };
 
-var nextNoteClickHandler = function() {
-  $('.js-next-note-button').on('click', function(e) {
-    e.preventDefault()
-    var noteId = $('.js-current-note').data('note-id')
-    var accountId = $('.js-current-note').data('account-id')
-    getNextNote(accountId, noteId);
-  });
-};
 
-var previousNoteClickHandler = function() {
-  $('.js-previous-note-button').on('click', function(e) { //HERE
-    e.preventDefault()
-    var noteId = $('.js-current-note').data('note-id')
-    var accountId = $('.js-current-note').data('account-id')
-    getPreviousNote(accountId, noteId);
-  });
-};
 
 var createNoteObject = function(data) {
   var noteObj = new Note(data.id, data.account_id, data.content, data.created_at);
