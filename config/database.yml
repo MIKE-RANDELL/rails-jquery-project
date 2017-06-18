@@ -29,15 +29,18 @@ development:
   database: my_database_development
   pool: 5
   timeout: 5000
+  host: /tmp
 
 test:
   adapter: postgresql
   database: my_database_development
   pool: 5
   timeout: 5000
+  host: /tmp
 
 production:
   adapter: postgresql
   database: my_database_development
   pool: 5
   timeout: 5000
+  host: /tmp
