@@ -28,15 +28,16 @@ development:
   adapter: postgresql
   database: my_database_development
   pool: 5
-  timeout: 5000
-  host: /tmp
+socket: /var/pgsql_socket/
+host: localhost
 
 test:
   adapter: postgresql
   database: my_database_development
   pool: 5
   timeout: 5000
-  host: /tmp
+socket: /var/pgsql_socket/
+host: localhost
 
 production:
   adapter: postgresql

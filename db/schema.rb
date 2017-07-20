@@ -23,12 +23,6 @@ ActiveRecord::Schema.define(version: 20170201202918) do
     t.integer "pallet_count", default: 0
   end
 
-  create_table "games", id: :serial, force: :cascade do |t|
-    t.text "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "items", id: :serial, force: :cascade do |t|
     t.string "item_type"
     t.integer "price"
